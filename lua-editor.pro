@@ -20,4 +20,4 @@ HEADERS  += mainwindow.h
 FORMS    += mainwindow.ui
 
 DISTFILES += \
-    Testings.txt
+    updates.txt
