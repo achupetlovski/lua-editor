@@ -12,3 +12,11 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::on_lineEdit_returnPressed()
+{
+    if(event -> key == Qt::Key_Enter)
+    {
+
+    }
+}
