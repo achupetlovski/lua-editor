@@ -4,6 +4,7 @@
 #include <QKeyEvent>
 #include <QDebug>
 #include <QStringList>
+#include <QChar>
 
 ///the below works daniele bot takuv :D QJ KUR
 bool MainWindow::eventFilter(QObject *object, QEvent *event)
@@ -30,8 +31,47 @@ bool MainWindow::eventFilter(QObject *object, QEvent *event)
         }*/
 
         QTextCursor tmp = ui->textEdit->textCursor();
-        //int tempInt = ui->textEdit->textCursor().position();
+        int tempInt = ui->textEdit->textCursor().position();
 
+        //qDebug()<< "tempInt:" << tempInt;
+
+        int newTempInt = ui->textEdit->textCursor().position()-1;
+
+        //char myChar = ui->textEdit->textCursor().
+        //QChar currentChar = lineEdit->text().at(lineEdit->cursorPosition());
+
+        if(newTempInt>0)
+        {
+            QChar myChar = ui->textEdit->toPlainText().at(newTempInt);
+
+
+            qDebug() << "myChar is:" << myChar;
+
+
+            if(myChar == '\t')
+            {
+                qDebug() << "myChar is equal to tab";
+
+                tmp.select(QTextCursor::WordUnderCursor);
+                QString word = tmp.selectedText();
+
+                QString tabulation1 = "&nbsp;";
+                QChar tabulation2 = '\t';
+
+
+                //word = "&nbsp;" + word;
+                //word = tabulation + word;
+                qDebug() << "Word is: "<< word;
+                qDebug() << "tabulation1 is: "<< tabulation1;
+                qDebug() << "tabulation2 is: "<< tabulation2;
+
+                tmp.setPosition(newTempInt);
+
+
+                tmp.insertHtml(tabulation1);
+                tmp.insertHtml(tabulation2);
+            }
+        }
         //int tempInt2 = tempInt-1;
 
         tmp.select(QTextCursor::WordUnderCursor);
@@ -40,7 +80,7 @@ bool MainWindow::eventFilter(QObject *object, QEvent *event)
         word = word + "<br>";
 
         tmp.insertHtml(word);
-        qDebug("Word inserted...");
+        //qDebug("Word inserted...");
 
         //qDebug() << word;
 
