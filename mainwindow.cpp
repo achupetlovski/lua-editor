@@ -15,14 +15,27 @@ bool MainWindow::eventFilter(QObject *object, QEvent *event)
         if (keyEvent->key() == Qt::Key_Return)
     {
         // Special tab handling
-        qDebug("Enter Key Pressed...");
+        qDebug("\nEnter Key Pressed...");
 
-        QString myTextString = ui->textEdit->toPlainText();
+        QTextCursor tmp = ui->textEdit->textCursor();
+        int tempInt = ui->textEdit->textCursor().position();
+
+
+        tmp.select(QTextCursor::WordUnderCursor);
+        QString word = tmp.selectedText();
+
+        //word = word + "<br>";
+        //tmp.insertHtml(word);
+
+
+        QString tabulation1 = "&nbsp;";
+
+        //QString myTextString = ui->textEdit->toPlainText();
 
         //qDebug() << "My text so far:\n" << myTextString;
 
 
-        QStringList stringList = myTextString.split(",",QString::SkipEmptyParts);
+        //QStringList stringList = myTextString.split(",",QString::SkipEmptyParts);
 
         /*
          for (int i = 0; i < stringList.size(); i++){
@@ -30,8 +43,6 @@ bool MainWindow::eventFilter(QObject *object, QEvent *event)
                     qDebug() << stringList.at(i);
         }*/
 
-        QTextCursor tmp = ui->textEdit->textCursor();
-        int tempInt = ui->textEdit->textCursor().position();
 
         //qDebug()<< "tempInt:" << tempInt;
 
@@ -40,46 +51,83 @@ bool MainWindow::eventFilter(QObject *object, QEvent *event)
         //char myChar = ui->textEdit->textCursor().
         //QChar currentChar = lineEdit->text().at(lineEdit->cursorPosition());
 
-        if(newTempInt>0)
+        if(newTempInt>=0)
         {
             QChar myChar = ui->textEdit->toPlainText().at(newTempInt);
-
+            /*
+            if(myChar == '\n')
+            {
+                newTempInt--;
+                myChar = ui->textEdit->toPlainText().at(newTempInt);
+            }*/
 
             qDebug() << "myChar is:" << myChar;
 
 
             if(myChar == '\t')
             {
-                qDebug() << "myChar is equal to tab";
+                //qDebug() << "myChar is equal to tab";
 
-                tmp.select(QTextCursor::WordUnderCursor);
-                QString word = tmp.selectedText();
+                //tmp.select(QTextCursor::WordUnderCursor);
+                //QString word = tmp.selectedText();
 
-                QString tabulation1 = "&nbsp;";
-                QChar tabulation2 = '\t';
+
+                //QChar tabulation2 = '\t';
 
 
                 //word = "&nbsp;" + word;
                 //word = tabulation + word;
-                qDebug() << "Word is: "<< word;
-                qDebug() << "tabulation1 is: "<< tabulation1;
-                qDebug() << "tabulation2 is: "<< tabulation2;
+                //qDebug() << "Word is: "<< word;
+                //qDebug() << "tabulation1 is: "<< tabulation1;
+                //qDebug() << "tabulation2 is: "<< tabulation2;
 
                 tmp.setPosition(newTempInt);
 
 
+                /////// IMPLEMENT A CHECK HERE if the
+                /// char before that is again a tab, if it is
+                /// tab until the char before that is not a tab
+
                 tmp.insertHtml(tabulation1);
-                tmp.insertHtml(tabulation2);
+                //tmp.insertHtml(tabulation2);
+
+
+
+
+
+                word = word + "<br>";
+                tmp.insertHtml(word);
+
+            }
+            else if(myChar == '{')
+            {
+                word = word + "<br>";
+                tmp.insertHtml(word);
+
+                tmp.setPosition(tempInt);
+                tmp.insertHtml(tabulation1);
+            }
+            else
+            {
+                word = word + "<br>";
+                tmp.insertHtml(word);
             }
         }
         //int tempInt2 = tempInt-1;
 
+
+
+        ///
+        /// the below adds a newline
+        ///
+        /*
         tmp.select(QTextCursor::WordUnderCursor);
         QString word = tmp.selectedText();
 
         word = word + "<br>";
-
         tmp.insertHtml(word);
+        */
+        ///
         //qDebug("Word inserted...");
 
         //qDebug() << word;
