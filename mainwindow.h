@@ -17,7 +17,7 @@ public:
 
 private slots:
     void on_lineEdit_returnPressed();
-    void keyPressEvent(QKeyEvent *event);
+    //void keyPressEvent(QKeyEvent *event);
     bool eventFilter(QObject *object, QEvent *event);
 
 private:

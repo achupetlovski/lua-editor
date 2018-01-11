@@ -22,4 +22,5 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui
 
 DISTFILES += \
-    updates.txt
+    updates.txt \
+    dani_part.txt

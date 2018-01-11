@@ -3,32 +3,7 @@
 #include <QEvent>
 #include <QKeyEvent>
 #include <QDebug>
-
-
-class keyEnterReceiver : public QObject
-{
-    Q_OBJECT
-protected:
-    bool eventFilter(QObject* obj, QEvent* event)
-    {
-        if (event->type()==QEvent::KeyPress) {
-            QKeyEvent* key = static_cast<QKeyEvent*>(event);
-            if ( (key->key()==Qt::Key_Enter) || (key->key()==Qt::Key_Return) ) {
-                //Enter or return was pressed
-
-                qDebug() << "I pressed ENTER!\n";
-
-            } else {
-                return QObject::eventFilter(obj, event);
-            }
-            return true;
-        } else {
-            return QObject::eventFilter(obj, event);
-        }
-        return false;
-    }
-};
-
+#include <QStringList>
 
 ///the below works daniele bot takuv :D QJ KUR
 bool MainWindow::eventFilter(QObject *object, QEvent *event)
@@ -40,6 +15,36 @@ bool MainWindow::eventFilter(QObject *object, QEvent *event)
     {
         // Special tab handling
         qDebug("Enter Key Pressed...");
+
+        QString myTextString = ui->textEdit->toPlainText();
+
+        //qDebug() << "My text so far:\n" << myTextString;
+
+
+        QStringList stringList = myTextString.split(",",QString::SkipEmptyParts);
+
+        /*
+         for (int i = 0; i < stringList.size(); i++){
+
+                    qDebug() << stringList.at(i);
+        }*/
+
+        QTextCursor tmp = ui->textEdit->textCursor();
+        //int tempInt = ui->textEdit->textCursor().position();
+
+        //int tempInt2 = tempInt-1;
+
+        tmp.select(QTextCursor::WordUnderCursor);
+        QString word = tmp.selectedText();
+
+        word = word + "<br>";
+
+        tmp.insertHtml(word);
+        qDebug("Word inserted...");
+
+        //qDebug() << word;
+
+
         return true;
     }
     else
@@ -65,22 +70,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 }
 
-void MainWindow::keyPressEvent(QKeyEvent *event)
-{
-    switch (event->key())
-    {
-        case Qt::Key_Return:
-            qDebug() << "I pressed enter\n" ;
-            break;
 
-        case Qt::Key_Enter:
-            qDebug() << "I pressed enter\n" ;
-            break;
-        case Qt::Key_Up:
-            qDebug() << "I pressed up key\n" ;
-            break;
-    }
-}
 
 MainWindow::~MainWindow()
 {
@@ -88,11 +78,6 @@ MainWindow::~MainWindow()
 }
 
 
-/*
 void MainWindow::on_lineEdit_returnPressed()
 {
-    if(event -> key == Qt::Key_Enter)
-    {
-
-    }
-}*/
+}

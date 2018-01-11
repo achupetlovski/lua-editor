@@ -1,0 +1,6 @@
+1. detect enter
+2. check for tabulation before
+
+
+
+3. make enter go to newline
