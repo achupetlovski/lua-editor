@@ -89,23 +89,38 @@ bool MainWindow::eventFilter(QObject *object, QEvent *event)
                 /// tab until the char before that is not a tab
 
                 tmp.insertHtml(tabulation1);
+
+                int tempInt2 = ui->textEdit->textCursor().position()-1;
+                QChar myChar2 = ui->textEdit->toPlainText().at(tempInt2);
+                qDebug() << "What did I insert just now?\n-" << myChar2;
+
+
                 //tmp.insertHtml(tabulation2);
-
-
-
-
-
                 word = word + "<br>";
                 tmp.insertHtml(word);
 
             }
             else if(myChar == '{')
             {
-                word = word + "<br>";
+                word =  "<br>" + word;
                 tmp.insertHtml(word);
+                //tmp.insertHtml("<br>");
 
-                tmp.setPosition(tempInt);
+                tmp.select(QTextCursor::WordUnderCursor);
+                //QString word = tmp.selectedText();
+
                 tmp.insertHtml(tabulation1);
+
+                int tempInt2 = ui->textEdit->textCursor().position()-1;
+                QChar myChar2 = ui->textEdit->toPlainText().at(tempInt2);
+                qDebug() << "What did I insert just now?\n-" << myChar2;
+
+                /*
+                tmp.setPosition(tempInt);
+                qDebug() << "My Pos = " << tempInt;
+                qDebug() << "tabulation1 is: "<< tabulation1;
+                tmp.insertHtml(tabulation1);
+                qDebug() << "Word inserted: " << word;*/
             }
             else
             {
@@ -113,6 +128,12 @@ bool MainWindow::eventFilter(QObject *object, QEvent *event)
                 tmp.insertHtml(word);
             }
         }
+        else
+        {
+            word = word + "<br>";
+            tmp.insertHtml(word);
+        }
+
         //int tempInt2 = tempInt-1;
 
 
