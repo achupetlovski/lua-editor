@@ -82,7 +82,7 @@ bool MainWindow::eventFilter(QObject *object, QEvent *event)
             if(myChar == '\t')
             {
                 qDebug() << "myChar is equal to tab";
-                /// THE TAB HERE IS BEING DETECTED BY WTF
+                /// THE TAB HERE IS BEING DETECTED BUT WTF
                 //tmp.select(QTextCursor::WordUnderCursor);
                 //QString word = tmp.selectedText();
 
