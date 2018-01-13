@@ -5,7 +5,7 @@
 #include <QDebug>
 #include <QStringList>
 #include <QChar>
-
+#include <QTextCursor>
 ///the below works daniele bot takuv :D QJ KUR
 bool MainWindow::eventFilter(QObject *object, QEvent *event)
 {
@@ -63,11 +63,26 @@ bool MainWindow::eventFilter(QObject *object, QEvent *event)
 
             qDebug() << "myChar is:" << myChar;
 
+            if(myChar == ')')
+            {
+                tmp.movePosition(QTextCursor::Down,QTextCursor::MoveAnchor,1);
+                tmp.movePosition(QTextCursor::Right,QTextCursor::MoveAnchor, 200);
+
+                /// THIS ON THE TOP SHOULD BE WORKING BUT IT"S NOT DOING WhAT IM ASKING IT
+                //QTextCursor tmp;
+                //tmp.movePosition(QTextCursor::Left, QTextCursor::MoveAnchor, 4);
+                //setCursor(tmp);
+
+
+                qDebug() << "I entered" << myChar;
+
+            }
+
 
             if(myChar == '\t')
             {
-                //qDebug() << "myChar is equal to tab";
-
+                qDebug() << "myChar is equal to tab";
+                /// THE TAB HERE IS BEING DETECTED BY WTF
                 //tmp.select(QTextCursor::WordUnderCursor);
                 //QString word = tmp.selectedText();
 
@@ -90,9 +105,10 @@ bool MainWindow::eventFilter(QObject *object, QEvent *event)
 
                 tmp.insertHtml(tabulation1);
 
-                int tempInt2 = ui->textEdit->textCursor().position()-1;
-                QChar myChar2 = ui->textEdit->toPlainText().at(tempInt2);
-                qDebug() << "What did I insert just now?\n-" << myChar2;
+                //int tempInt2 = ui->textEdit->textCursor().position()-1;
+                //int tempInt2 = ui->textEdit->textCursor().atStart();
+                //QChar myChar2 = ui->textEdit->toPlainText().at(tempInt2);
+                //qDebug() << "What did I insert just now?\n-" << myChar2;
 
 
                 //tmp.insertHtml(tabulation2);
@@ -111,7 +127,7 @@ bool MainWindow::eventFilter(QObject *object, QEvent *event)
 
                 tmp.insertHtml(tabulation1);
 
-                int tempInt2 = ui->textEdit->textCursor().position()-1;
+                int tempInt2 = ui->textEdit->textCursor().position();
                 QChar myChar2 = ui->textEdit->toPlainText().at(tempInt2);
                 qDebug() << "What did I insert just now?\n-" << myChar2;
 
