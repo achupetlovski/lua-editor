@@ -1,1 +1,2 @@
-guise please update this file with a short brief when you do new stuff
+Coloring should work fine. Colors are set manually in the coloring.cpp part in a list.
+Will shortly add a pop up box or something that will ask if users want to use default configuration, idk.

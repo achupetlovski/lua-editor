@@ -14,13 +14,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    tabulation.cpp
+    tabulation.cpp \
+    coloring.cpp
 
 HEADERS  += mainwindow.h \
-    tabulation.h
+    tabulation.h \
+    coloring.h
 
 FORMS    += mainwindow.ui
 
 DISTFILES += \
-    updates.txt \
-    dani_part.txt
+    updates.txt
